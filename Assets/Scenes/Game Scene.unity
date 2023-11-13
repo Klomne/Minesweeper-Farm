@@ -6138,7 +6138,7 @@ GameObject:
   - component: {fileID: 484107932}
   - component: {fileID: 484107933}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: Game-Instructions (Toggle)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6162,7 +6162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -865, y: -515}
+  m_AnchoredPosition: {x: -457.4, y: -235.5}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484107933
@@ -12319,13 +12319,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!1001 &965894503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20107,8 +20107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cedb84301c9ab14bbc7715ea7d87b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 20
+  width: 16
+  height: 16
   mineCount: 32
 --- !u!4 &1703757771 stripped
 Transform:
