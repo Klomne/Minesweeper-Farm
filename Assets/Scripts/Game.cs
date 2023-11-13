@@ -1,3 +1,4 @@
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ public class Game : MonoBehaviour
         GenerateMines();
         GenerateNumbers();
 
-        Camera.main.transform.position = new Vector3(0, 16, 0); //(width / 2f, 16, height / 2f)
+        Camera.main.transform.position = new Vector3(0, 16, -width / 2); //(width / 2f, 16, height / 2f)
         board.Draw(state);
     }
 
@@ -92,7 +93,6 @@ public class Game : MonoBehaviour
                     cell.type = Cell.Type.Number;
                 }
 
-                cell.revealed=true;
                 state[x, y] = cell;
             }
         }
@@ -114,17 +114,99 @@ public class Game : MonoBehaviour
                 int x = cellX + adjacentX;
                 int y = cellY + adjacentY;
 
-                if (x < 0 || x >= width || y < 0 || y >= height) {
-                    continue;
-                }
-
-                if (state[x, y].type == Cell.Type.Mine) {
+                if (GetCell(x, y).type == Cell.Type.Mine) {
                     count++;
                 }
             }
         }
 
         return count;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1)) {
+            Flag();
+        } else if (Input.GetMouseButtonUp(0)) {  
+            Reveal(); 
+        }
+    }
+
+    private void Flag()
+    {
+        RaycastHit hitInfo = new RaycastHit();
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out  hitInfo, Mathf.Infinity);
+        Vector3 worldPosition = hitInfo.point;
+
+        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+        cellPosition.x = cellPosition.x + (width / 2);
+        cellPosition.y = cellPosition.y + (height / 2);
+        //Debug.Log(cellPosition); //If I need to see in console where I'm clicking on the grid
+        Cell cell = GetCell(cellPosition.x, cellPosition.y);
+
+        if (cell.type == Cell.Type.Invalid || cell.revealed){
+            return;
+        }
+
+        cell.flagged = !cell.flagged;
+        state[cellPosition.x, cellPosition.y] = cell;
+        board.Draw(state);
+    }
+
+    private void Reveal()
+    {
+        RaycastHit hitInfo = new RaycastHit();
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity);
+        Vector3 worldPosition = hitInfo.point;
+
+        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+        cellPosition.x = cellPosition.x + (width / 2);
+        cellPosition.y = cellPosition.y + (height / 2);
+        //Debug.Log(cellPosition); //If I need to see in console where I'm clicking on the grid
+        Cell cell = GetCell(cellPosition.x, cellPosition.y);
+
+        if (cell.type == Cell.Type.Invalid || cell.revealed || cell.flagged) {
+            return;
+        }
+
+        if (cell.type == Cell.Type.Empty) { 
+            Flood(cell); 
+        }
+
+        cell.revealed = true;
+        state[cellPosition.x, cellPosition.y] = cell;
+        board.Draw(state);
+    }
+
+    private void Flood(Cell cell)
+    {
+        if (cell.revealed) return;
+        if (cell.type == Cell.Type.Mine || cell.type == Cell.Type.Invalid) return;
+
+        cell.revealed = true;
+        state[cell.position.x + (width / 2), cell.position.y + (height / 2)] = cell;
+
+        if (cell.type == Cell.Type.Empty)
+        {
+            Flood(GetCell(cell.position.x + (width / 2) - 1, cell.position.y + (height / 2)));
+            Flood(GetCell(cell.position.x + (width / 2) + 1, cell.position.y + (height / 2)));
+            Flood(GetCell(cell.position.x + (width / 2), cell.position.y + (height / 2) -1));
+            Flood(GetCell(cell.position.x + (width / 2), cell.position.y + (height / 2) + 1));
+        }
+    }
+
+    private Cell GetCell(int x, int y)
+    {
+        if (IsValid(x, y)){
+            return state[x, y];
+        } else {
+            return new Cell();
+        }
+    }
+
+    private bool IsValid(int x, int y)
+    {
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
 
 }

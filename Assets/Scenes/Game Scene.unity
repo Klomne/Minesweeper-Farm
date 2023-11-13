@@ -6162,7 +6162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -655.3333, y: -354.33334}
+  m_AnchoredPosition: {x: -865, y: -515}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484107933
@@ -7774,7 +7774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5633750146274514518, guid: 46f171877366049f4a152818e9d8cdbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.313815
+      value: 7.14
       objectReference: {fileID: 0}
     - target: {fileID: 5633750146274514518, guid: 46f171877366049f4a152818e9d8cdbb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12319,13 +12319,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!1001 &965894503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14318,7 +14318,7 @@ Transform:
   m_GameObject: {fileID: 1169515239}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.80359966, y: -115.98277, z: 47.148674}
+  m_LocalPosition: {x: -0.80359966, y: -115.98277, z: 47.974857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15322,7 +15322,7 @@ Transform:
   m_GameObject: {fileID: 1235788781}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20107,8 +20107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cedb84301c9ab14bbc7715ea7d87b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 16
-  height: 16
+  width: 10
+  height: 20
   mineCount: 32
 --- !u!4 &1703757771 stripped
 Transform:
