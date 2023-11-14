@@ -1,6 +1,11 @@
+using JetBrains.Annotations;
+using System;
 using System.Net;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -11,6 +16,12 @@ public class Game : MonoBehaviour
     private Board board;
     private Cell[,] state;
     private bool gameover;
+
+    //Butttons, Dropdowns, Inputs, Sliders
+    public Button restartButton;
+    public Slider cellAmountSlider;
+    public TextMeshProUGUI cellAmount;
+    public TextMeshProUGUI mineAmount;
 
     private void OnValidate()
     {
@@ -25,12 +36,26 @@ public class Game : MonoBehaviour
     private void Start()
     {
         NewGame();
+
+        //Butttons, Dropdowns, Inputs, Sliders
+        restartButton.onClick.AddListener(delegate { NewGame(); });
+        
+        cellAmount.text = $"{width}";
+        cellAmountSlider.onValueChanged.AddListener(delegate { BoardSize(); });
+
+        cellAmountSlider.minValue = 2;
+        cellAmountSlider.maxValue = 128;
+
+        mineAmount.text = $"{mineCount}";
     }
 
     private void NewGame()
     {
         state = new Cell[width, height];
         gameover = false;
+
+        Tilemap Tm = board.gameObject.GetComponent<Tilemap>();
+        Tm.ClearAllTiles();
 
         GenerateCells();
         GenerateMines();
@@ -59,8 +84,8 @@ public class Game : MonoBehaviour
     {
         for (int i = 0; i < mineCount; i++) 
         {
-            int x = Random.Range(0, width);
-            int y = Random.Range(0, height);
+            int x = UnityEngine.Random.Range(0, width);
+            int y = UnityEngine.Random.Range(0, height);
 
             while (state[x, y].type == Cell.Type.Mine) 
             {
@@ -299,6 +324,15 @@ public class Game : MonoBehaviour
     private bool IsValid(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
+    //Buttons, Dropdowns, Inputs, Sliders
+    private void BoardSize()
+    {
+        height = (int)cellAmountSlider.value;
+        width = (int)cellAmountSlider.value;
+
+        cellAmount.text = $"{width}";
     }
 
 }
